@@ -1,14 +1,14 @@
-# ML code publication checklist: "Some is always better then none"
+# Painless ML code publication checklist
 
 In the field of science, there is little incentive to do some clean-up after the core of your work has been done.
-However, you must be familiar with the weeks struggling to decypher someone's work when starting a new research
-project. With this work, we would like to 
+However, you must be familiar with the time struggling to decypher someone's work when starting a new research
+project. Let's make an effort together to make this process effortless! 
 
 # Publication practises
 
 1. Publish code
 
-Some code is always better then no code. No explanation required.
+No excuses. Some code is always better then no code. No futher explanation required.
 
 2. Dataset information
 
@@ -17,10 +17,16 @@ Data is key in ML. Datasets may float around on the internet in different versio
 decisions you have made as a researcher.
 Consequently, others can either use, alter or compare it. If you cannot publish the dataset, please publish some dataset
 statistics.
+
+3. Contribute to an open-source library!
+
+Please consider taking a morning to publish your model/dataset to an open-source library which are easily accessible
+like [HuggingFace](https://huggingface.co) or [ir_datasets](https://ir-datasets.com)
   
 # Software environment
 
-Please list the used packages. For Python, simply run a `pip freeze > requirements.txt` and publish it with your code.
+Please list the technology and used packages/libraries. For Python, simply run a `pip freeze > requirements.txt` and
+publish it with your code.
 
 # Feasibility
 
@@ -31,9 +37,8 @@ If you list your used hardware, others can quickly judge the feasibility to repr
 
 2. List your execution time.
 
-How long does it take to preprocess data / train models / run execution times. A rough estimate is okay, since
+How long does it take to preprocess data / train models / run execution times? A rough estimate is okay, since
 everyone's hardware setup is different.
-
 
 # Best coding practices
 To summarise, the best coding practises assume others will follow up on your code.
