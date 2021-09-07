@@ -1,4 +1,4 @@
-import torch, platform, psutil, cpuinfo, sys, pip
+import torch, platform, psutil, cpuinfo
 use_cuda = torch.cuda.is_available()
 
 
@@ -11,21 +11,23 @@ def header(string):
 
 def print_hardware(save_to_disk: bool = True):
     platform_uname = platform.uname()
+    cpu = cpuinfo.get_cpu_info()
+    gb_string = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB"
 
     header('Hardware info')
     print('Platform system :', platform.system())
     print('Platform version:', platform_uname.version)
-    cpu = cpuinfo.get_cpu_info()
     print('CPU             :', cpu['brand_raw'])
-    print('RAM             :', str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " GB")
+    print('RAM             :', gb_string)
 
     header('CUDA information')
     if torch.cuda.is_available():
-        print('__CUDNN VERSION:', torch.backends.cudnn.version())
         n_devices = torch.cuda.device_count()
+        total_gpu_memory = [torch.cuda.get_device_properties(0).total_memory / 1e9 for i in range(n_devices)]
+        print('__CUDNN VERSION:', torch.backends.cudnn.version())
         print('__Number CUDA Devices:', n_devices)
         print('__CUDA Device Name:', [torch.cuda.get_device_name(i) for i in range(n_devices)])
-        print('__CUDA Device Memory [GB]:', [torch.cuda.get_device_properties(0).total_memory / 1e9 for i in range(n_devices)])
+        print('__CUDA Device Memory [GB]:', total_gpu_memory)
     else:
         print('Not present in system')
 
@@ -40,7 +42,8 @@ def print_hardware(save_to_disk: bool = True):
     for p in packages[1:]:
         print('                 ', p)
 
-
-
-print_hardware()
-
+    header('For in your publication')
+    print(f"Experiments were done on a {cpu['hz_advertised_friendly']} CPU, {gb_string} RAM system"\
+          +(f"with {n_devices} GPUs with {total_gpu_memory} VRAM in total." if torch.cuda.is_available() else " without GPUs")
+          +"."
+          )
